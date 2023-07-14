@@ -9,8 +9,15 @@ class HomeController extends Controller
 {
     public function index() 
     {
-        return view('home.index',[
-            'logged_user' => Auth::user()
-        ]);
+        if(Auth::user())
+        {
+            return view('home.index',[
+                'logged_user' => Auth::user()
+            ]);
+        }
+        else
+        {
+             return view('auth.login');
+        }
     }
 }

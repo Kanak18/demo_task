@@ -6,10 +6,18 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.87.0">
-    <title>Fixed top navbar example · Bootstrap v5.1</title>
+    <title>Demo Task</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
+    <link href="{!! url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css') !!}" rel="stylesheet">
+
+
+
+    <link href="{!! url('https://use.fontawesome.com/releases/v5.3.1/css/all.css') !!}" rel="stylesheet">    
+
+
+
+
 
     <style>
       .bd-placeholder-img {
@@ -39,7 +47,10 @@
         @yield('content')
     </main>
 
-    <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
-      
+    
+    
+    <script src="{!! url('https://code.jquery.com/jquery-3.7.0.min.js') !!}" defer></script>
+      <script src="{!! url('assets/bootstrap/js/bootstrap.min.js') !!}" defer></script>
+      <script src = "{!! url('https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js') !!}">
   </body>
 </html>

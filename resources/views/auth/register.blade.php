@@ -40,7 +40,30 @@
             @endif
         </div>
 
+        <div class="form-group form-floating mb-3">
+
+            
+            <div class="form-group">
+
+              <input class="form-group-input" value="2" type="radio" name="user_type" id="user_type" checked>
+              <label class="form-group-label" for="user_type">
+               Customer
+              </label>
+           
+              <input class="form-group-input" value="1" type="radio" name="user_type" id="user_type" >
+              <label class="form-group-label" for="user_type">
+                Manager
+              </label>
+            </div>
+
+            
+  
+        </div>
+
+
         <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+        <br><br>
+         <a class="w-100 btn btn-lg btn-link" href="{{ url('login') }}">Login</a>
         
         @include('auth.partials.copy')
     </form>

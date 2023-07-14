@@ -43,6 +43,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     });
 
     Route::group(['middleware' => ['auth']], function() {
+
+
         /**
          * Logout Routes
          */
@@ -53,8 +55,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::resource('tasks', 'TaskController', [
             'only' => [
-                'index', 'store', 'update', 'destroy', 'edit'
+                'index', 'store', 'update', 'destroy', 'edit','create'
             ]
         ]);
+
+        /**
+         * Task Routes
+         */
+        Route::resource('users', 'UserController', [
+            'only' => [
+                'index', 'store', 'update', 'destroy', 'edit','create'
+            ]
+        ]);
+
+        
     });
 });

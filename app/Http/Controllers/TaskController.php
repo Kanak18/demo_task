@@ -16,10 +16,12 @@ class TaskController extends Controller
      */
     public function index()
     {
+         $login_user = Auth::user()->id;
         // paginate the authorized user's tasks with 5 per page
-        $tasks = Auth::user()
-            ->tasks()
-            ->orderBy('is_complete')
+         $tasks = Task::select('*')->where(function ($query) use ($login_user) {
+                        $query->where('user_id', '=', $login_user)->orWhere('added_by', '=', $login_user);                        
+         });        
+         $tasks = $tasks->orderBy('is_complete')
             ->orderByDesc('created_at')
             ->paginate(5);
 
@@ -32,6 +34,15 @@ class TaskController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        $all_users = User::select('*')->where('id','<>' , Auth::user()->id)->get();
+        return view('home/tasks_form_new', [           
+            'all_users' => $all_users,
+            'logged_user' => Auth::user()
+        ]);
+    }
+
     /**
      * Store a new incomplete task for the authenticated user.
      *
@@ -40,6 +51,8 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $loginUser = Auth::User();
+
         // validate the given request
         $data = $this->validate($request, [
             'title' => 'required|string|max:255',
@@ -49,6 +62,8 @@ class TaskController extends Controller
         Auth::user()->tasks()->create([
             'title' => $data['title'],
             'is_complete' => false,
+            'user_id'   => $request->assign_user_id,
+            'added_by' => $loginUser->id,
         ]);
 
         // flash a success message to the session
@@ -66,21 +81,14 @@ class TaskController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Task $task,Request $request) {
-
-        if($request->_method == "PUT") {
-            // Update the task
-            $task->title = $request->title;
-            $task->user_id = $request->assign_user_id;
-            $task->save();
-            $msg = "Task Updated!";
-
-        } elseif($request->_method == "PATCH") {
-
-            // mark the task as complete and save it
-            $task->is_complete = true;
-            $task->save();
-            $msg = "Task Completed!";
-        }
+        
+        // Update the task
+        $task->title = $request->title;        
+        $task->user_id = $request->assign_user_id;
+        $task->is_complete = $request->is_completed;
+        $task->save();
+        $msg = "Task Updated!";
+        
 
         // flash a success message to the session
         session()->flash('status', $msg);
@@ -102,21 +110,14 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        // paginate the authorized user's tasks with 5 per page
-        $tasks = Auth::user()
-            ->tasks()
-            ->orderBy('is_complete')
-            ->orderByDesc('created_at')
-            ->paginate(5);
-
-        $all_users = User::select('*')->get();
+        $all_users = User::select('*')->where('id','<>' , Auth::user()->id)->get();
 
         // return task index view with paginated tasks
-        return view('home/tasks', [
-            'tasks' => $tasks,
-            'existed_task' => $task,
+        return view('home/tasks_form', [
             'all_users' => $all_users,
+            'existed_task' => $task,
             'logged_user' => Auth::user()
-        ]);
+        ]);     
+       
     }
 }

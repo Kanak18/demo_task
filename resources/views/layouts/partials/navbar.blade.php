@@ -1,30 +1,31 @@
 <header class="p-3 bg-dark text-white">
   <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-      </a>
-
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{{ url('/') }}" class="nav-link px-2 text-secondary">Home</a></li>
-        @auth
-        <li><a href="{{ url('/tasks') }}" class="nav-link px-2 text-white">Task</a></li>
-        @endauth
-      </ul>
-
-      @auth
-        {{auth()->user()->name}}
-        <div class="text-end">
-           &nbsp;&nbsp;<a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>
+     @auth
+    <nav  class="navbar navbar-expand-lg navbar-light bg-dark p-0 text-white">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" width="100%" id="navbarNav">
+            <ul class="navbar-nav" style="height: 4rem;">
+                <li class="nav-item text-white">
+                    <a class="nav-link p-3 text-white" href="{{ url('/') }}">Dashboard</a>
+                </li>
+                @if(auth()->user()->roles[0]->name != "customer")
+                <li class="nav-item text-white">
+                    <a class="nav-link p-3 text-white" href="{{ url('/users') }}">Users</a>
+                </li>
+                @endif
+                <li class="nav-item text-white">
+                    <a class="nav-link p-3 text-white" href="{{ url('/tasks') }}">Tasks</a>
+                </li>
+                
+            </ul>
         </div>
-      @endauth
 
-      @guest
-        <div class="text-end">
-          <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-          <a href="{{ route('register.perform') }}" class="btn btn-warning">Register</a>
-        </div>
-      @endguest
-    </div>
+        Log in as {{auth()->user()->name}} &nbsp;&nbsp;&nbsp;<br/>Role : {{ ucwords(auth()->user()->roles[0]->name) }}
+        <a class="nav-item mr-3 nav-link p-3 btn btn-outline-light me-2" href="{{ route('logout.perform') }}" >Logout</a>
+
+    </nav>
+    @endauth
   </div>
 </header>

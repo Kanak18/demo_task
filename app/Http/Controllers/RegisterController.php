@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 
@@ -28,13 +29,28 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request) 
     {        
         // $user = User::create($request->validated());
-        $validatedData = $request->validated();        
+        $validatedData = $request->validated();     
+
+
+
+
         $user = User::create([
             'name' => $validatedData['username'],
             'username' => $validatedData['username'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
+
+        if($request->user_type==1)
+        {            
+            $user->assignRole('manager');
+        }
+        else
+        {
+            $user->assignRole('customer');
+
+        }
+
 
         auth()->login($user);
 

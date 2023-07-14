@@ -27,6 +27,8 @@
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+        <br><br>
+        <a class="w-100 btn btn-lg btn-link" href="{{ url('register') }}">Register</a>
         
         @include('auth.partials.copy')
     </form>
