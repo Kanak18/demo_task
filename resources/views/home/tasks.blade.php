@@ -14,15 +14,17 @@
 
           <div class="row">
             <div class="col-12">
-                
-
+                @if(auth()->user()->roles[0]->name!="customer")
                 <a href="{{ url('tasks/create') }}" class="btn btn-danger float-right mb-3"><i class="fa fa-plus"></i></a>
+                @endif
+              
               <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th scope="col">Task No</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Assign User</th>
+                    <th scope="col">Assign By</th>
+                    <th scope="col">Assign To</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -33,11 +35,12 @@
                   <tr>
                     <th scope="row">{{ $task->id }}</th>
                     <td>{{ $task->title }}</td>                    
-                    <td>{{ $task->user->name }}</td>
-                    <td>{{ ($task->is_complete==1) ? ' Completed ': ' Un Complete' }}</td>
+                    <td>{{ getAddedUserName($task->added_by) }}</td>
+                     <td>{{ $task->user->name }}</td>         
+                    <td>{{ getTaskStatus($task->is_complete==1)  }}</td>
                     <td>
-                      <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-
+                      
+                      <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                       
                       @if($task->is_complete==0)    
                       <a href="{{ url('tasks/'.$task->id.'/edit') }}" class="btn btn-success"><i class="fas fa-edit"></i></a>

@@ -24,11 +24,11 @@ class UserController extends Controller
 
         if($loginUser->roles[0]->name=="admin")
         {
-            $all_users = User::select('*')->get();
+            $all_users = User::select('*')->where('id','!=',$loginUser->id)->get(); 
         }
         else 
         {
-            $all_users = User::select('*')->where('added_by',$loginUser->id)->get();   
+            $all_users = User::select('*')->where('id','!=',$loginUser->id)->where('added_by',$loginUser->id)->get();   
         }    
 
 
@@ -43,6 +43,13 @@ class UserController extends Controller
         return view('home/users_form_new');
     }
     
+    public function show(User $user,Request $request)
+    {
+         // return task index view with paginated tasks
+        return view('home/users_form_view', [            
+            'user_info' => $user
+        ]);        
+    }
 
     /**
      * Store a new incomplete task for the authenticated user.
@@ -64,10 +71,23 @@ class UserController extends Controller
             'added_by' => $loginUser->id,
         ]);
        
-        $user->assignRole('customer');
+
+        if($loginUser->roles[0]->name=="manager")
+        {
+            $user->assignRole('customer');
+        }
+        if($loginUser->roles[0]->name=="admin")
+        {
+            if($request->user_type=="2")
+            {
+                $user->assignRole('customer');
+            }
+            else if($request->user_type=="1")
+            {
+                 $user->assignRole('manager');
+            }
+        }
        
-
-
         // flash a success message to the session
         session()->flash('status', 'User Created!');
 
@@ -84,7 +104,7 @@ class UserController extends Controller
      */
     public function update(User $user,Request $request) {
 
-
+        
 
         if($request->_method == "PUT") {
             // Update the task

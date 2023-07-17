@@ -5,30 +5,27 @@
         @auth
         <h1 class="mb-4">User</h1>
         <div class="card">
-            <div class="card-header">Edit User</div>
+            <div class="card-header">User Info</div>
 
-            <form method="POST" action="{{ route('users.update', $user_obj->id) }}">
-            @csrf
-            @method('PUT')
             <div class="card-body">
                 
                 <label for="email"><b>Name</b></label>                   
-                <input type="text" value="{{ $user_obj->name }}" name="name" id="name" class="input">         
+                <span class="input"> {{ $user_info->name }}</span>                  
 
                 <label for="email"><b>Email</b></label>
-                <span class="input">{{ $user_obj->email }}</span>
+                <span class="input">{{ $user_info->email }}</span>
 
 
                 <label for="email"><b>Username</b></label>
-                <input type="text" name="username" id="username" value="{{ $user_obj->username }}" class="input">
+                 <span class="input">{{ $user_info->username }}</span>
 
                 <label for="email"><b>No. of Tasks</b></label>
-                <span class="input">{{ $user_obj->tasks->count() }}</span>
+                <span class="input">{{ $user_info->tasks->count() }}</span>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+
+                <a href="{{ url('users') }}" class="btn btn-primary">Back</a>
 
             </div>
-          </form>
         </div>
         @endauth
     </div>

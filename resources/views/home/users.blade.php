@@ -34,10 +34,14 @@
                   <tr>
                     <th scope="row">{{ $userobj->id }}</th>
                     <td>{{ $userobj->name }}</td>
-                    <td>{{ $userobj->email }}</td>
+                    <td>{{ $userobj->email }}<br>
+                    {{ $userobj->roles[0]->name }}</td>
                     <td>{{ date("m/d/Y",strtotime($userobj->created_at)) }}</td>
                     <td>
-                      <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                      
+
+                      <a href="{{ route('users.show', $userobj->id) }}" class="btn btn-success"><i class="far fa-eye"></i></a>
+
                       <a href="{{ url('users/'.$userobj->id.'/edit') }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
 
                     <form method="POST" action="{{ route('users.destroy', $userobj->id) }}">

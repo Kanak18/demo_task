@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Task;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Helper;
 
 class TaskController extends Controller
 {
@@ -16,16 +19,27 @@ class TaskController extends Controller
      */
     public function index()
     {
+
+        
          $login_user = Auth::user()->id;
         // paginate the authorized user's tasks with 5 per page
          $tasks = Task::select('*')->where(function ($query) use ($login_user) {
                         $query->where('user_id', '=', $login_user)->orWhere('added_by', '=', $login_user);                        
+
+
          });        
          $tasks = $tasks->orderBy('is_complete')
             ->orderByDesc('created_at')
             ->paginate(5);
 
-        $all_users = User::select('*')->get();
+        
+        $role = Role::where('name', 'customer')->first();
+
+        $all_users = User::role($role)->get();
+
+        
+
+        //$all_users = User::select('*')->get();
 
         // return task index view with paginated tasks
         return view('home/tasks', [
@@ -36,7 +50,12 @@ class TaskController extends Controller
 
     public function create()
     {
-        $all_users = User::select('*')->where('id','<>' , Auth::user()->id)->get();
+
+        $role = Role::where('name', 'customer')->first();
+        $all_users = User::role($role)->get();
+
+
+        //$all_users = User::select('*')->where('id','<>' , Auth::user()->id)->get();
         return view('home/tasks_form_new', [           
             'all_users' => $all_users,
             'logged_user' => Auth::user()
@@ -58,8 +77,7 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        // create a new incomplete task with the given title
-        Auth::user()->tasks()->create([
+        Task::create([
             'title' => $data['title'],
             'is_complete' => false,
             'user_id'   => $request->assign_user_id,
@@ -108,9 +126,19 @@ class TaskController extends Controller
         return redirect('/tasks');
     }
 
+    public function show(Task $task,Request $request)
+    {
+         // return task index view with paginated tasks
+        return view('home/tasks_form_view', [            
+            'task_data' => $task
+        ]);        
+    }
+
     public function edit(Task $task)
     {
-        $all_users = User::select('*')->where('id','<>' , Auth::user()->id)->get();
+        
+        $role = Role::where('name', 'customer')->first();
+        $all_users = User::role($role)->get();
 
         // return task index view with paginated tasks
         return view('home/tasks_form', [

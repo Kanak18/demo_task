@@ -30,6 +30,8 @@
                 <label for="username"><b>Username</b></label>
                 <input type="text" name="username" id="username" value="{{ old('username') }}" class="input" required>
 
+                
+
                 <label for="email"><b>Password</b></label>
                 <input type="password" value="" name="password" id="password" class="input" required>     
                 
@@ -37,6 +39,24 @@
                 <label for="email"><b>Confirm Password</b></label>
                 <input type="password" value="" name="password_confirmation" id="password_confirmation" class="input" required>     
                 
+                @if(auth()->user()->roles[0]->name=="admin")
+                <label for="email"><b>User Type</b></label>                
+                <div class="form-group">
+
+                  <input class="form-group-input " value="2" type="radio" name="user_type" id="user_type" checked>
+                  <label class="form-group-label" for="user_type">
+                   Customer
+                  </label>
+               
+                  <input class="form-group-input" value="1" type="radio" name="user_type" id="user_type" >
+                  <label class="form-group-label" for="user_type">
+                    Manager
+                  </label>
+                </div>
+                @else
+                    <input class="form-group-input " value="2" type="hidden" name="user_type" id="user_type">
+                @endif
+
 
                 <button type="submit" class="btn btn-primary">Save</button>
 

@@ -32,8 +32,6 @@ class RegisterController extends Controller
         $validatedData = $request->validated();     
 
 
-
-
         $user = User::create([
             'name' => $validatedData['username'],
             'username' => $validatedData['username'],

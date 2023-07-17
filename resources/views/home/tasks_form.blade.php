@@ -35,14 +35,21 @@
                     <input type="hidden" name="assign_user_id" id="assign_user_id" value="{{ $existed_task->user_id }}">
                 @endif    
 
-                 <label for="username"><b>Is Completed</b></label>
+                <label for="username"><b>Is Completed</b></label>
                 <div class="form-group">
+
+                    @if($existed_task->user_id==auth()->user()->id)    
                     
                     <select name="is_completed" id="is_completed" class="input form-control{{ $errors->has('is_completed') ? ' is-invalid' : '' }}">
                         <option value="0">un-complted</option>
                         <option value="1">complted</option>
                         
                     </select>
+
+                    @else
+                        <span class="input">{{ getTaskStatus($existed_task->is_complete) }}</span> 
+                        <input type="hidden" name="is_completed" id="is_completed" value="{{ intval($existed_task->is_complete) }}">                        
+                    @endif
                     
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>

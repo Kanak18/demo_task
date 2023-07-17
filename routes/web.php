@@ -55,7 +55,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::resource('tasks', 'TaskController', [
             'only' => [
-                'index', 'store', 'update', 'destroy', 'edit','create'
+                'index', 'store', 'update', 'destroy', 'edit','create','show'
             ]
         ]);
 
@@ -64,7 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::resource('users', 'UserController', [
             'only' => [
-                'index', 'store', 'update', 'destroy', 'edit','create'
+                'index', 'store', 'update', 'destroy', 'edit','create','show'
             ]
         ]);
 

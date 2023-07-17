@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2023 at 02:39 PM
+-- Generation Time: Jul 17, 2023 at 09:42 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -93,8 +93,13 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 10),
 (1, 'App\\Models\\User', 11),
 (1, 'App\\Models\\User', 12),
+(1, 'App\\Models\\User', 13),
+(1, 'App\\Models\\User', 16),
+(1, 'App\\Models\\User', 17),
 (2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 9),
+(2, 'App\\Models\\User', 14),
+(2, 'App\\Models\\User', 15),
 (3, 'App\\Models\\User', 3);
 
 -- --------------------------------------------------------
@@ -219,9 +224,8 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `user_id`, `title`, `is_complete`, `added_by`, `created_at`, `updated_at`) VALUES
-(2, 9, 'Task One  to Manager', 0, 3, '2023-07-14 06:15:50', '2023-07-14 06:39:10'),
-(3, 10, 'Task One to Manager 33', 1, 3, '2023-07-14 06:39:38', '2023-07-14 07:05:32'),
-(4, 10, 'Test', 0, 10, '2023-07-14 07:08:20', '2023-07-14 07:08:20');
+(12, 16, 'Task one From Admin to Customer 1', 0, 3, '2023-07-17 01:36:20', '2023-07-17 01:36:20'),
+(13, 17, 'Task Addeb By Manager One to Cutomer 2', 1, 15, '2023-07-17 01:40:40', '2023-07-17 01:59:23');
 
 -- --------------------------------------------------------
 
@@ -247,12 +251,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `added_by`, `created_at`, `updated_at`) VALUES
-(2, 'customer_three', '@vivaan', 'manager_one@gmail.com', '2023-07-14 01:38:01', '$2y$10$rc2sA9As9/aRpk3Bks8yM.fQIzA7FRCNmxzA5Lh2aIJBEmy2fu5oC', 'MIS47FGrqh8rj7B0WlkQ8rUdUuRuc3uGN2lmAPAcbxI7qi1MNqFHyhtpaYz7', 0, '2023-07-14 01:38:01', '2023-07-14 06:54:57'),
-(3, 'Admin', 'adsfadafs', 'admin@gmail.com', '2023-07-14 01:38:01', '$2y$10$rc2sA9As9/aRpk3Bks8yM.fQIzA7FRCNmxzA5Lh2aIJBEmy2fu5oC', 'UxBhQcRqZNlO8A00aTKeZhA51WE1PlTjQ7jG22QJ8sMrEKm5jpjIcBMm2dql', 0, '2023-07-14 01:38:01', '2023-07-14 01:38:01'),
-(9, 'manager_two22', '222', 'manager_two@gmail.com', NULL, '$2y$10$rc2sA9As9/aRpk3Bks8yM.fQIzA7FRCNmxzA5Lh2aIJBEmy2fu5oC', NULL, 0, '2023-07-14 02:32:20', '2023-07-14 04:31:45'),
-(10, 'cust_kanak_1', NULL, 'cust_kanak_1@gmail.com', NULL, '$2y$10$rc2sA9As9/aRpk3Bks8yM.fQIzA7FRCNmxzA5Lh2aIJBEmy2fu5oC', NULL, 0, '2023-07-14 05:10:47', '2023-07-14 05:10:47'),
-(11, 'customer_three', NULL, 'customer_three@gmail.com', NULL, '$2y$10$rc2sA9As9/aRpk3Bks8yM.fQIzA7FRCNmxzA5Lh2aIJBEmy2fu5oC', NULL, 2, '2023-07-14 05:51:43', '2023-07-14 05:51:43'),
-(12, 'customer_four', NULL, 'customer_four@gmail.com', NULL, '$2y$10$rc2sA9As9/aRpk3Bks8yM.fQIzA7FRCNmxzA5Lh2aIJBEmy2fu5oC', NULL, 2, '2023-07-14 05:54:15', '2023-07-14 05:54:15');
+(3, 'admin', 'admin', 'admin@gmail.com', '2023-07-14 01:38:01', '$2y$10$81VpUQOrTl8z6/7wPukqfOjcPP0b5iS87Ms6KgP6DsMZj3zBL5Rx6', 'c8KnpUa74X63z17LkRT5HggbrGeKLKeHRVXbDv6IiSFembI8iy3VnAkhUTLz', 0, '2023-07-14 01:38:01', '2023-07-17 01:32:19'),
+(15, 'manager_1', 'manager_1', 'manager_1@gmail.com', NULL, '$2y$10$Yftz7CLDO6WdqU917VMkB.0c.xebRvR743zDrCE6xNnWwPEmS5MJ6', NULL, 3, '2023-07-17 01:11:10', '2023-07-17 01:35:52'),
+(16, 'customer_1', 'customer_1', 'customer_1@gmail.com', NULL, '$2y$10$5iJfhwUd8K9HegwvmDThXuONVxqFIckPVTu2kGKlTEdpo1uYqCp6i', NULL, 3, '2023-07-17 01:28:48', '2023-07-17 01:28:48'),
+(17, 'customer_2', 'customer_2', 'customer_2@gmail.com', NULL, '$2y$10$WjdPUYpuyi3TumRRU20K9O/cNabJOtQj1SG6tPdWaA4SNOsxOWOSK', NULL, 15, '2023-07-17 01:39:41', '2023-07-17 01:39:41');
 
 --
 -- Indexes for dumped tables
@@ -372,13 +374,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
